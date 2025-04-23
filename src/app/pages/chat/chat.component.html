@@ -1,0 +1,41 @@
+<div class="chat-container" [ngClass]="currentTheme">
+    <div class="chat-header">
+      <button class="back-btn" routerLink="/home">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button (click)="toggleTheme()" class="theme-btn">
+        <i [ngClass]="{'far fa-sun': currentTheme === 'dark', 'far fa-moon': currentTheme === 'light'}"></i>
+      </button>
+    </div>
+    
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Loading conversation...</p>
+    </div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+  
+    <div class="messages">
+      <div *ngFor="let m of messages" class="message" [ngClass]="{ 'user': m.user === userId, 'bot': m.user === 0 }">
+        <div class="avatar" [ngClass]="{ 'user-avatar': m.user === userId, 'bot-avatar': m.user === 0 }">
+          <i [ngClass]="{ 'fas fa-user': m.user === userId, 'fas fa-robot': m.user === 0 }"></i>
+        </div>
+        <div class="message-content">
+          <div class="text">{{ m.content }}</div>
+        </div>
+      </div>
+      <div #messagesEnd></div>
+    </div>
+  
+    <form class="input-box" (ngSubmit)="sendMessage()">
+      <input
+        [(ngModel)]="newMessage"
+        name="message"
+        placeholder="Type your message..."
+        required
+      />
+      <button type="submit" class="send-btn">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>

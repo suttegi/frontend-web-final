@@ -1,1 +1,181 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* Основные переменные */
+:root {
+  --light-bg: #ffffff;
+  --light-text: #343541;
+  --light-secondary-text: #6e6e80;
+  --light-border: #e5e5e5;
+  --light-hover: #f7f7f8;
+  --light-sidebar: #f7f7f8;
+  --light-btn-primary: #10a37f;
+  --light-btn-hover: #0e8f71;
+  --light-input-bg: #ffffff;
+  --light-message-user: #f7f7f8;
+  --light-message-bot: #ffffff;
+  
+  --dark-bg: #343541;
+  --dark-text: #ececf1;
+  --dark-secondary-text: #acacbe;
+  --dark-border: #4d4d4f;
+  --dark-hover: #444654;
+  --dark-sidebar: #202123;
+  --dark-btn-primary: #10a37f;
+  --dark-btn-hover: #0e8f71;
+  --dark-input-bg: #40414f;
+  --dark-message-user: #444654;
+  --dark-message-bot: #343541;
+}
+
+/* Базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+body.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* Общие стили компонентов */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+input {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.light input {
+  background-color: var(--light-input-bg);
+  border: 1px solid var(--light-border);
+  color: var(--light-text);
+}
+
+.dark input {
+  background-color: var(--dark-input-bg);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text);
+}
+
+.light input:focus {
+  border-color: var(--light-btn-primary);
+  outline: none;
+}
+
+.dark input:focus {
+  border-color: var(--dark-btn-primary);
+  outline: none;
+}
+
+.primary-btn {
+  background-color: var(--light-btn-primary);
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: var(--light-btn-hover);
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.spinner {
+  border: 3px solid transparent;
+  border-radius: 50%;
+  border-top: 3px solid var(--light-btn-primary);
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.light .error {
+  color: #d9534f;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  background-color: rgba(217, 83, 79, 0.1);
+}
+
+.dark .error {
+  color: #ff6b6b;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+/* Theme specific button styles */
+.light .theme-btn {
+  background-color: transparent;
+  color: var(--light-secondary-text);
+  border: 1px solid var(--light-border);
+}
+
+.dark .theme-btn {
+  background-color: transparent;
+  color: var(--dark-secondary-text);
+  border: 1px solid var(--dark-border);
+}
+
+.light .theme-btn:hover {
+  background-color: var(--light-hover);
+}
+
+.dark .theme-btn:hover {
+  background-color: var(--dark-hover);
+}
+
+/* Back button */
+.light .back-btn {
+  background-color: transparent;
+  color: var(--light-secondary-text);
+}
+
+.dark .back-btn {
+  background-color: transparent;
+  color: var(--dark-secondary-text);
+}
+
+.light .back-btn:hover {
+  background-color: var(--light-hover);
+}
+
+.dark .back-btn:hover {
+  background-color: var(--dark-hover);
+}

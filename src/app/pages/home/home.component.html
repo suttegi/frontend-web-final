@@ -1,0 +1,47 @@
+<div class="home-container" [ngClass]="currentTheme">
+  <div class="sidebar">
+    <div class="logo">
+      <h1>GPT bratan</h1>
+    </div>
+    
+    <div class="chat-create">
+      <input [(ngModel)]="newChatTitle" name="chatTitle" placeholder="New chat title..." />
+      <button class="create-btn" (click)="createChat()">
+        <i class="fas fa-plus"></i> New Chat
+      </button>
+    </div>
+
+    <ul class="chat-list">
+      <li *ngFor="let chat of chats">
+        <a [routerLink]="['/chat', chat.id]">
+          {{ chat.title }}
+        </a>
+        <button class="delete-btn" (click)="deleteChat(chat.id)">Delete</button>
+      </li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <button (click)="toggleTheme()" class="theme-btn">
+        <i [ngClass]="{'far fa-sun': currentTheme === 'dark', 'far fa-moon': currentTheme === 'light'}"></i>
+        {{ currentTheme === 'light' ? 'Dark Mode' : 'Light Mode' }}
+      </button>
+      <button (click)="logout()" class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="welcome-section">
+      <h2>Welcome to GPT bratan</h2>
+      <p>Select a chat or create a new one to start the conversation.</p>
+    </div>
+    
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Loading chats...</p>
+    </div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </div>
+</div>
