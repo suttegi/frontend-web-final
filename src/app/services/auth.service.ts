@@ -8,10 +8,6 @@ import { AuthToken } from '../models/auth.model';
 export class AuthService {
   private readonly accessKey  = 'accessToken';
   private readonly refreshKey = 'refreshToken';
-  private readonly API        = 'https://backend-web-dev-kbtu-production.up.railway.app/api/token/';
-  private readonly REFRESH    = 'https://backend-web-dev-kbtu-production.up.railway.app/api/token/refresh/';
-
-  constructor(private http: HttpClient) {}
 
   getToken(): string | null {
     return localStorage.getItem(this.accessKey);
@@ -24,17 +20,6 @@ export class AuthService {
   setToken(tokens: AuthToken) {
     localStorage.setItem(this.accessKey,  tokens.access);
     localStorage.setItem(this.refreshKey, tokens.refresh);
-  }
-
-  refreshAccessToken(): Observable<string> {
-    const refresh = this.getRefreshToken;
-    if (!refresh) {
-      return throwError(() => new Error('No refresh token'));
-    }
-    return this.http.post<AuthToken>(this.REFRESH, { refresh }).pipe(
-      tap(tokens => this.setToken(tokens)),
-      map(tokens => tokens.access)
-    );
   }
 
   getUserId(): number {

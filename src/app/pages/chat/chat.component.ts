@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute }          from '@angular/router';
+import { ActivatedRoute, Router }          from '@angular/router';
 import { CommonModule }            from '@angular/common';
 import { FormsModule }             from '@angular/forms';
 
@@ -35,11 +35,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private route: ActivatedRoute,
-    // private chatService: ChatService,
     private messageService: MessageService,
     private llmService: LlmService,
     private auth: AuthService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +70,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  back(){
+    this.router.navigateByUrl('/');
   }
 
   sendMessage() {
