@@ -9,6 +9,7 @@ import {
 import { AuthService } from '../services/auth.service';
 import { catchError, switchMap, tap, throwError } from 'rxjs';
 import { AuthToken } from '../models/auth.model';
+import { environment } from '../../environments/environments.prod';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
@@ -20,6 +21,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       setHeaders: { Authorization: `Bearer ${token}` }
     });
   }
+
+  //todo: credentials: true если http Only будет готов
   
   return next(authReq).pipe(
     catchError(err => {
@@ -30,10 +33,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           auth.clearToken();
           return throwError(() => err);
         }
-        return http.post<AuthToken>('https://backend-web-dev-kbtu-production.up.railway.app/api/token/refresh/', { refresh }).pipe(
+        return http.post<AuthToken>(`${environment.apiBaseUrl}/token/refresh/`, { refresh }).pipe(
           tap(tokens => auth.setToken(tokens)),
           switchMap(tokens => {
-            const retryReq = req.clone({ setHeaders: { Authorization: `Bearer ${tokens.access}` } });
+            const retryReq = req.clone({ setHeaders: { Authorization: `Bearer ${tokens.access}`, 'x-refresh-retry': 'true' } });
             return next(retryReq);
           }),
           catchError(refreshErr => {

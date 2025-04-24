@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
 import { Observable }  from 'rxjs';
+import { environment } from '../../environments/environments.prod';
 
 interface LlmRequest {
   prompt: string;
@@ -14,7 +15,7 @@ interface LlmResponse {
 
 @Injectable({ providedIn: 'root' })
 export class LlmService {
-  private readonly API = 'https://backend-web-dev-kbtu-production.up.railway.app/api/llm/';
+  private readonly API = `${environment.apiBaseUrl}/llm/`;
   constructor(private http: HttpClient) {}
   sendPrompt(body: LlmRequest): Observable<LlmResponse> {
     return this.http.post<LlmResponse>(this.API, body);

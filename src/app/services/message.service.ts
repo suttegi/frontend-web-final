@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
+import { environment } from '../../environments/environments.prod';
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
-  private apiUrl = 'https://backend-web-dev-kbtu-production.up.railway.app/api/message';
+  private apiUrl = `${environment.apiBaseUrl}/message`;
 
   constructor(private http: HttpClient) {}
 

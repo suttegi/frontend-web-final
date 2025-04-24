@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ThemeService } from '../../services/theme.service';
+import { environment } from '../../../environments/environments.prod';
 
 @Component({
   selector: 'app-auth',
@@ -48,8 +49,8 @@ export class AuthComponent {
 
   submit() {
     const url = this.isLoginMode
-      ? 'https://backend-web-dev-kbtu-production.up.railway.app/api/token/'
-      : 'https://backend-web-dev-kbtu-production.up.railway.app/api/register/';
+      ? `${environment.apiBaseUrl}/token/`
+      : `${environment.apiBaseUrl}/register/`;
     
     const body = {
       username: this.username,

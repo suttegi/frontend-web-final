@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Chat } from '../models/chat.model';
+import { environment } from '../../environments/environments.prod';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  private apiUrl = 'https://backend-web-dev-kbtu-production.up.railway.app/api/chat';
+  private apiUrl = `${environment.apiBaseUrl}/chat`;
 
   constructor(private http: HttpClient) {}
 
@@ -14,7 +15,7 @@ export class ChatService {
   }
 
   createChat(title: string, user: number): Observable<Chat> {
-    return this.http.post<Chat>(`https://backend-web-dev-kbtu-production.up.railway.app/api/chat/`, { title, user });
+    return this.http.post<Chat>(`${environment.apiBaseUrl}/chat/`, { title, user });
   }  
 
   updateChat(id: number, title: string, user: number): Observable<Chat> {
